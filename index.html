@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Política de Privacidade - Pouppe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,140 +14,513 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #f9fafb;
+            padding: 0;
         }
 
         .container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 0 auto;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            min-height: 100vh;
         }
 
         .header {
-            background: linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%);
-            color: white;
-            padding: 40px 30px;
+            background: #2563EB;
+            padding: 24px;
             text-align: center;
+            color: white;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 600;
         }
 
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1rem;
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            background: white;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b7280;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .tab:hover {
+            color: #2563EB;
+        }
+
+        .tab.active {
+            color: #2563EB;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #2563EB;
         }
 
         .content {
-            padding: 40px 30px;
+            display: none;
+            padding: 16px;
+            gap: 16px;
         }
 
-        .last-update {
-            background: #f0f9ff;
-            border-left: 4px solid #2563EB;
-            padding: 15px 20px;
-            margin-bottom: 30px;
-            border-radius: 8px;
+        .content.active {
+            display: flex;
+            flex-direction: column;
         }
 
-        h2 {
-            color: #2563EB;
-            font-size: 1.8rem;
-            margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #e5e7eb;
-        }
-
-        h3 {
-            color: #1d4ed8;
-            font-size: 1.3rem;
-            margin: 25px 0 15px 0;
-        }
-
-        p {
-            margin-bottom: 15px;
-            color: #4b5563;
-        }
-
-        ul {
-            margin: 15px 0 15px 30px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            color: #4b5563;
-        }
-
-        .highlight {
-            background: #fef3c7;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #f59e0b;
-        }
-
-        .contact-box {
-            background: #f0fdf4;
-            border: 2px solid #10b981;
+        .section {
+            padding: 16px;
+            background: white;
             border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            flex: 1;
+        }
+
+        .section-text {
+            font-size: 14px;
+            line-height: 22px;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .bullet-list {
+            padding-left: 8px;
+            margin: 12px 0;
+        }
+
+        .bullet-item {
+            font-size: 14px;
+            line-height: 22px;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
+            padding: 12px;
+            border-radius: 8px;
+            background: #FEF3C7;
+            margin: 12px 0;
+        }
+
+        .warning-text {
+            font-size: 13px;
+            font-weight: 700;
             text-align: center;
+            color: #F59E0B;
         }
 
-        .contact-box h3 {
-            color: #10b981;
-            margin-top: 0;
+        .success-box {
+            padding: 12px;
+            border-radius: 8px;
+            background: #D1FAE5;
+            margin: 12px 0;
         }
 
-        .contact-info {
-            font-size: 1.1rem;
-            color: #059669;
+        .success-text {
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            color: #10B981;
+        }
+
+        .quote-box {
+            padding: 16px;
+            border-radius: 8px;
+            background: #DBEAFE;
+            border-left: 4px solid #2563EB;
+            margin: 12px 0;
+        }
+
+        .quote-text {
+            font-size: 14px;
+            line-height: 22px;
+            font-style: italic;
+            color: #1f2937;
+        }
+
+        .contact-text {
+            font-size: 14px;
             font-weight: 600;
-            margin-top: 10px;
-        }
-
-        .footer {
-            background: #f9fafb;
-            padding: 30px;
-            text-align: center;
-            color: #6b7280;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        a {
             color: #2563EB;
-            text-decoration: none;
+            margin-top: 8px;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .footer-box {
+            padding: 16px;
+            border-radius: 12px;
+            background: #D1FAE5;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 4px;
         }
 
         .icon {
-            margin-right: 8px;
+            width: 20px;
+            height: 20px;
         }
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2rem;
+                font-size: 18px;
             }
             
             .content {
-                padding: 30px 20px;
+                padding: 12px;
+            }
+
+            .section {
+                padding: 12px;
             }
         }
     </style>
 </head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Termos e Privacidade</h1>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('terms')">
+                <i class="fas fa-file-contract"></i>
+                Termos de Uso
+            </button>
+            <button class="tab" onclick="switchTab('privacy')">
+                <i class="fas fa-shield-alt"></i>
+                Privacidade
+            </button>
+        </div>
+
+        <!-- Terms Content -->
+        <div id="terms-content" class="content active">
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-info-circle" style="color: #2563EB;"></i>
+                    <h2 class="section-title">1. Sobre o Aplicativo</h2>
+                </div>
+                <p class="section-text">
+                    Este aplicativo é uma ferramenta de lista de compras que oferece estimativas de preços totais em diferentes mercados da sua região.
+                </p>
+                <p class="section-text">
+                    O objetivo é auxiliar o consumidor a tomar decisões informadas sobre onde realizar suas compras, promovendo transparência e economia.
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-database" style="color: #10B981;"></i>
+                    <h2 class="section-title">2. Origem dos Preços</h2>
+                </div>
+                <p class="section-text">Os preços exibidos são obtidos por meio de:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Coleta pública em cartazes, folhetos e materiais de divulgação dos estabelecimentos</p>
+                    <p class="bullet-item">• Relatórios voluntários de usuários através das funcionalidades do próprio app</p>
+                    <p class="bullet-item">• Verificações periódicas realizadas por nossa equipe nos estabelecimentos cadastrados</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-exclamation-triangle" style="color: #F59E0B;"></i>
+                    <h2 class="section-title">3. Avisos Importantes</h2>
+                </div>
+                <div class="warning-box">
+                    <p class="warning-text">⚠️ Os preços são informativos e estimados</p>
+                </div>
+                <p class="section-text">Os valores apresentados podem variar conforme:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Promoções vigentes no momento da compra</p>
+                    <p class="bullet-item">• Disponibilidade de produtos em estoque</p>
+                    <p class="bullet-item">• Diferenças regionais e de localização</p>
+                    <p class="bullet-item">• Atualizações de preços pelos estabelecimentos</p>
+                </div>
+                <p class="section-text" style="color: #6b7280;">
+                    O aplicativo não garante os valores exibidos e não representa oficialmente nenhum estabelecimento comercial.
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-balance-scale" style="color: #2563EB;"></i>
+                    <h2 class="section-title">4. Direito à Informação do Consumidor</h2>
+                </div>
+                <p class="section-text">
+                    Este aplicativo está fundamentado no direito à livre informação ao consumidor, conforme estabelecido pelo Código de Defesa do Consumidor (Lei nº 8.078/1990), Artigo 6º, inciso III:
+                </p>
+                <div class="quote-box">
+                    <p class="quote-text">
+                        "São direitos básicos do consumidor a informação adequada e clara sobre os diferentes produtos e serviços, com especificação correta de quantidade, características, composição, qualidade, tributos incidentes e preço..."
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-box">
+                <p class="footer-text">
+                    Última atualização: 11 de novembro de 2024
+                </p>
+            </div>
+        </div>
+
+        <!-- Privacy Content -->
+        <div id="privacy-content" class="content">
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-shield-alt" style="color: #10B981;"></i>
+                    <h2 class="section-title">1. Compromisso com sua Privacidade</h2>
+                </div>
+                <p class="section-text">
+                    Sua privacidade é fundamental para nós. Esta política explica como coletamos, usamos, armazenamos e protegemos suas informações pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-clipboard-list" style="color: #2563EB;"></i>
+                    <h2 class="section-title">2. Dados Coletados</h2>
+                </div>
+                <p class="section-text" style="font-weight: 700;">Dados de Cadastro:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Nome completo</p>
+                    <p class="bullet-item">• E-mail</p>
+                    <p class="bullet-item">• Senha (criptografada)</p>
+                    <p class="bullet-item">• Localização aproximada (cidade/região) para sugestão de mercados próximos</p>
+                </div>
+
+                <p class="section-text" style="font-weight: 700; margin-top: 12px;">Dados de Uso:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Listas de compras criadas</p>
+                    <p class="bullet-item">• Produtos adicionados às listas</p>
+                    <p class="bullet-item">• Preços reportados por você</p>
+                    <p class="bullet-item">• Preferências de mercados</p>
+                    <p class="bullet-item">• Histórico de comparações</p>
+                </div>
+
+                <p class="section-text" style="font-weight: 700; margin-top: 12px;">Dados Técnicos:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Tipo de dispositivo e sistema operacional</p>
+                    <p class="bullet-item">• Endereço IP (anonimizado)</p>
+                    <p class="bullet-item">• Dados de navegação no app</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-bullseye" style="color: #10B981;"></i>
+                    <h2 class="section-title">3. Finalidade do Uso dos Dados</h2>
+                </div>
+                <p class="section-text">Utilizamos seus dados exclusivamente para:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Criar e gerenciar sua conta no aplicativo</p>
+                    <p class="bullet-item">• Fornecer estimativas de preços personalizadas</p>
+                    <p class="bullet-item">• Sugerir mercados próximos à sua localização</p>
+                    <p class="bullet-item">• Melhorar a precisão das informações de preços</p>
+                    <p class="bullet-item">• Aprimorar a experiência do usuário</p>
+                    <p class="bullet-item">• Enviar notificações sobre alterações de preços (se autorizado)</p>
+                    <p class="bullet-item">• Prevenir fraudes e garantir a segurança do serviço</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-share-alt" style="color: #F59E0B;"></i>
+                    <h2 class="section-title">4. Compartilhamento de Dados</h2>
+                </div>
+                <div class="success-box">
+                    <p class="success-text">✓ Nós NÃO vendemos seus dados pessoais</p>
+                </div>
+                <p class="section-text">Seus dados podem ser compartilhados apenas nas seguintes situações:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Com sua autorização explícita</p>
+                    <p class="bullet-item">• Com prestadores de serviços essenciais (hospedagem, análise de dados) sob contrato de confidencialidade</p>
+                    <p class="bullet-item">• Por ordem judicial ou requisição legal</p>
+                    <p class="bullet-item">• Dados anonimizados para fins estatísticos e melhoria do serviço</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-lock" style="color: #EF4444;"></i>
+                    <h2 class="section-title">5. Segurança dos Dados</h2>
+                </div>
+                <p class="section-text">Implementamos medidas técnicas e administrativas para proteger seus dados:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Criptografia de senhas e dados sensíveis</p>
+                    <p class="bullet-item">• Conexões seguras (HTTPS/SSL)</p>
+                    <p class="bullet-item">• Servidores protegidos com firewalls</p>
+                    <p class="bullet-item">• Backups regulares</p>
+                    <p class="bullet-item">• Acesso restrito apenas a pessoal autorizado</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-clock" style="color: #6B7280;"></i>
+                    <h2 class="section-title">6. Retenção de Dados</h2>
+                </div>
+                <p class="section-text">Mantemos seus dados pelo tempo necessário para fornecer o serviço e cumprir obrigações legais:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Dados de cadastro: enquanto sua conta estiver ativa</p>
+                    <p class="bullet-item">• Listas e histórico: até você excluí-los ou deletar sua conta</p>
+                    <p class="bullet-item">• Dados de preços reportados: agregados e anonimizados permanentemente</p>
+                    <p class="bullet-item">• Logs de segurança: até 6 meses</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-user-check" style="color: #10B981;"></i>
+                    <h2 class="section-title">7. Seus Direitos (LGPD)</h2>
+                </div>
+                <p class="section-text">De acordo com a LGPD, você tem direito a:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Confirmar se tratamos seus dados pessoais</p>
+                    <p class="bullet-item">• Acessar seus dados</p>
+                    <p class="bullet-item">• Corrigir dados incompletos, inexatos ou desatualizados</p>
+                    <p class="bullet-item">• Solicitar anonimização, bloqueio ou eliminação de dados</p>
+                    <p class="bullet-item">• Solicitar portabilidade dos dados</p>
+                    <p class="bullet-item">• Revogar consentimento</p>
+                    <p class="bullet-item">• Excluir sua conta permanentemente</p>
+                </div>
+                <p class="section-text" style="color: #6b7280; margin-top: 8px;">
+                    Para exercer esses direitos, entre em contato através do e-mail: pouppe.app@gmail.com
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-child" style="color: #F59E0B;"></i>
+                    <h2 class="section-title">8. Menores de Idade</h2>
+                </div>
+                <p class="section-text">
+                    Este aplicativo é destinado a maiores de 18 anos. Não coletamos intencionalmente dados de menores. Se identificarmos dados de menores, procederemos com a exclusão imediata.
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-map-marker-alt" style="color: #2563EB;"></i>
+                    <h2 class="section-title">9. Uso de Localização</h2>
+                </div>
+                <p class="section-text">A permissão de localização é opcional e usada apenas para:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Sugerir mercados próximos a você</p>
+                    <p class="bullet-item">• Personalizar estimativas de preços regionais</p>
+                </div>
+                <div class="warning-box" style="background: #DBEAFE;">
+                    <p class="warning-text" style="color: #2563EB;">ℹ️ Você pode revogar a permissão a qualquer momento nas configurações do dispositivo</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-bell" style="color: #F59E0B;"></i>
+                    <h2 class="section-title">10. Notificações</h2>
+                </div>
+                <p class="section-text">Com sua autorização, enviamos notificações sobre:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Alertas de mudanças significativas de preços</p>
+                    <p class="bullet-item">• Promoções identificadas em produtos da sua lista</p>
+                    <p class="bullet-item">• Atualizações importantes do app</p>
+                </div>
+                <p class="section-text" style="color: #6b7280; margin-top: 8px;">
+                    Você pode desativar notificações a qualquer momento nas configurações.
+                </p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-question-circle" style="color: #2563EB;"></i>
+                    <h2 class="section-title">11. Dúvidas e Contato</h2>
+                </div>
+                <p class="section-text">Para questões sobre privacidade e proteção de dados:</p>
+                <p class="contact-text">E-mail: pouppe.app@gmail.com</p>
+                <p class="contact-text">Encarregado de Dados (DPO): pouppe.app@gmail.com</p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <i class="fas fa-landmark" style="color: #6B7280;"></i>
+                    <h2 class="section-title">12. Base Legal</h2>
+                </div>
+                <p class="section-text">O tratamento dos seus dados está fundamentado em:</p>
+                <div class="bullet-list">
+                    <p class="bullet-item">• Consentimento do titular (Art. 7º, I da LGPD)</p>
+                    <p class="bullet-item">• Execução de contrato (Art. 7º, V da LGPD)</p>
+                    <p class="bullet-item">• Legítimo interesse (Art. 7º, IX da LGPD)</p>
+                    <p class="bullet-item">• Cumprimento de obrigação legal (Art. 7º, II da LGPD)</p>
+                </div>
+            </div>
+
+            <div class="footer-box">
+                <i class="fas fa-shield-alt" style="font-size: 24px; color: #10B981; margin-bottom: 8px;"></i>
+                <p class="footer-text">
+                    Seus dados estão protegidos conforme a LGPD (Lei nº 13.709/2018)
+                </p>
+                <p class="footer-text">
+                    Última atualização: 11 de novembro de 2024
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            event.target.closest('.tab').classList.add('active');
+            document.getElementById(tab + '-content').classList.add('active');
+        }
+    </script>
+</body>
+</html>
 <body>
     <div class="container">
         <div class="header">
@@ -286,4 +660,4 @@
         </div>
     </div>
 </body>
-</html># pouppe-privacy-policy
+</html>
